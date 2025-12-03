@@ -12,41 +12,28 @@ int counter=0;
 
 int items_read=0;
     file= fopen("input.txt", "r");
+if(file == NULL){
+    printf("Error reading file");
+}
 
     while((items_read=fscanf(file, " %c%d", &dir,&pos)) == 2){
-if(pos>100){
-    for(int i=0; i < (pos/100); i++){
-            counter++;
-        }
-       int remainder=pos%100;
-
-        if(dir == 'L'){
-            current = (100 + current - remainder)%100;
-        }else if (dir == 'R') {
+        for(int i =0; i<pos;i++){
             
-            current = (current + remainder) % 100;
-        } else {
             
-        } 
+            if(dir == 'L'){
+                current = (100 + current - 1)%100;
+            }else if (dir == 'R') {
+                current = (current + 1) % 100;
+            }else{
+                printf("Wrong direction input");
+            } 
+            
         if(current==0){
-            counter++;
-        }
-
- 
-    }else{
-        if(dir == 'L'){
-            current = (100 + current - pos)%100;
-        }else if (dir == 'R') {
-            
-            current = (current + pos) % 100;
-        } else {
-            
-        }
-        if(current==0){
-            counter++;
+                counter++;
+            }
         }
     }
-}
+    
     fclose(file);
     printf("The actual password is: %d\n", counter);
 
